@@ -1,0 +1,175 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+
+namespace _3D_Game
+{
+    /// <summary>
+    /// This is the main type for your game
+    /// </summary>
+    public class Game3D : Microsoft.Xna.Framework.Game
+    {
+    //========================================================================================
+    
+        // Input Device States
+        KeyboardState kNow;
+        KeyboardState kPrev;
+        MouseState mNow;
+        MouseState mPrev;
+
+        // Drawing
+        GraphicsDeviceManager graphics;
+        SpriteBatch spriteBatch;
+
+        // Cameras
+        public Camera camera { get; protected set; }
+
+        // Models
+        ModelManager modelManager;
+
+        // Fonts
+        public SpriteFont fontSansSerif;
+        public SpriteFont fontSerif;
+        public SpriteFont fontSystem;
+
+        // Game Flags
+        bool debug = true;
+        bool paused = false;
+
+    //========================================================================================
+
+        public Game3D()
+        {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+        }
+
+        //// INITIALIZE
+        protected override void Initialize()
+        {
+            // input devices
+            kNow = Keyboard.GetState();
+            kPrev = kNow;
+            mNow = Mouse.GetState();
+            mPrev = mNow;
+
+            // graphics
+            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.ApplyChanges();
+
+            // camera
+            camera = new Camera(this, new Vector3(0, 20, 50), Vector3.Zero, Vector3.Up);
+            Components.Add(camera);
+
+            // models
+            modelManager = new ModelManager(this);
+            Components.Add(modelManager);
+
+            // other stuff
+            base.Initialize();
+        }
+
+        //// LOADCONTENT
+        protected override void LoadContent()
+        {
+            // load sprites
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // load fonts
+            fontSystem = Content.Load<SpriteFont>(@"Fonts\system");
+        }
+
+        //// UNLOADCONTENT
+        protected override void UnloadContent()
+        {
+            // TODO: Unload any non ContentManager content here
+        }
+
+        //// UPDATE
+        protected override void Update(GameTime gameTime)
+        {
+            // Keyboard controls
+            kNow = Keyboard.GetState();
+            if (kNow.IsKeyDown(Keys.Escape)) this.Exit();
+            debug = (kNow.IsKeyUp(Keys.OemTilde) && kPrev.IsKeyDown(Keys.OemTilde)) ? !debug : debug;
+            paused = (kNow.IsKeyUp(Keys.P) && kPrev.IsKeyDown(Keys.P)) ? !paused : paused;
+
+            // Mouse controls
+            mNow = Mouse.GetState();
+
+            // update input devices
+            kPrev = kNow;
+            mPrev = mNow;
+
+            base.Update(gameTime);
+        }
+
+        //// DRAW
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.White);
+
+            base.Draw(gameTime);
+
+            // debug
+            if (debug) DrawDebug();
+        }
+
+        protected void DrawDebug()
+        {
+            // debug lines
+            string dbg_game1 = (paused ? "\u25a0 paused" : "\u25a1 running");
+            string dbg_cam1 = "cameraPos["
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.X)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.Y)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.Z)
+                + "]";
+            string dbg_cam2 = "cameraDir["
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraDirection.X)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraDirection.Y)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraDirection.Z)
+                + "]";
+            string dbg_cam3 = "cameraUp ["
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraUp.X)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraUp.Y)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraUp.Z)
+                + "]";
+            string dbg_mous1 = "mousePos ["
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", mNow.X)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", mNow.Y)
+                + "]";
+            string dbg_mous2 = ((mNow.LeftButton == ButtonState.Pressed) ? "\u25a0" : "\u25a1") + " mouseLeft";
+            string dbg_mous3 = ((mNow.RightButton == ButtonState.Pressed) ? "\u25a0" : "\u25a1") + " mouseRight";
+            string dbg_draw1 = "window size " + graphics.PreferredBackBufferWidth + "\u2219" + graphics.PreferredBackBufferHeight;
+            string dbg_draw2 = "'~' to toggle debug info";
+            string dbg_draw3 = "'R' to reset camera";
+
+            // draw text
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                spriteBatch.DrawString(fontSystem, dbg_game1, new Vector2(10, 10), paused ? Color.Red : Color.Blue);
+                spriteBatch.DrawString(fontSystem, dbg_cam1, new Vector2(10, 22), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_cam2, new Vector2(10, 34), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_cam3, new Vector2(10, 46), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mous1, new Vector2(10, 70), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mous2, new Vector2(10, 82), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mous3, new Vector2(10, 94), Color.Black);
+                spriteBatch.DrawString(fontSystem, "\u2609", new Vector2(mNow.X, mNow.Y), Color.Black); // mouse cursor
+                spriteBatch.DrawString(fontSystem, dbg_draw1, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw1).X, 10), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_draw2, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw2).X, 22), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_draw3, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw3).X, 34), Color.Black);
+            spriteBatch.End();
+
+            // Fix depth stuff before drawing 3D !!
+            GraphicsDevice.BlendState = BlendState.Opaque;
+            GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        }
+    }
+}
