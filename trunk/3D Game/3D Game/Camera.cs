@@ -14,20 +14,24 @@ namespace _3D_Game
 {
     /// <summary>
     /// The Camera class implements functionality for navigating the 3d environment
+    /// TODO:
+    /// - change camera into arcball camera w/ keyboard control for adjusting
+    ///   y-location of anchor and 'orbiting' in x-z plane around anchor
+    /// - keep mouse rotation, but only for looking up and down
     /// </summary>
     public class Camera : Microsoft.Xna.Framework.GameComponent
     {
-        // Fundamental
+        // View and Direction
         public Matrix view { get; protected set; }
         public Matrix projection { get; protected set; }
-
-        // Transform
         public Vector3 cameraPosition { get; protected set; }
         public Vector3 cameraDirection;
         public Vector3 cameraUp;
         Vector3 initPos;
         Vector3 initDirection;
         Vector3 initUp;
+        Vector3 moveDirection;
+        Vector3 moveUp;
         float speed = 1;
 
         // Input/Controls
@@ -35,9 +39,9 @@ namespace _3D_Game
         KeyboardState kPrev;
         MouseState mNow;
         MouseState mPrev;
+        MouseState mMove;
 
-        // redundant ..
-        Vector2 moveInitial;
+        // Flags
         bool paused = false;
 
         public Camera(Game game, Vector3 pos, Vector3 target, Vector3 up)
@@ -59,7 +63,6 @@ namespace _3D_Game
                 1, 3000);
         }
 
-        //// INITIALIZE
         public override void Initialize()
         {
             Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
@@ -70,7 +73,6 @@ namespace _3D_Game
             base.Initialize();
         }
 
-        //// UPDATE
         public override void Update(GameTime gameTime)
         {
             // Inputs
@@ -93,44 +95,37 @@ namespace _3D_Game
             if (Keyboard.GetState().IsKeyDown(Keys.S))  // backward
                 cameraPosition -= cameraDirection * speed;
             if (Keyboard.GetState().IsKeyDown(Keys.A))  // left
-                cameraPosition -= Vector3.Cross(cameraDirection, cameraUp) * speed;
+                cameraPosition -= Vector3.Cross(cameraDirection, initUp) * speed;
             if (Keyboard.GetState().IsKeyDown(Keys.D))  // right
-                cameraPosition += Vector3.Cross(cameraDirection, cameraUp) * speed;
+                cameraPosition += Vector3.Cross(cameraDirection, initUp) * speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Q))  // roll left
                 cameraUp = Vector3.Transform(cameraUp, Matrix.CreateFromAxisAngle(cameraDirection, MathHelper.PiOver4 / 45));
             if (Keyboard.GetState().IsKeyDown(Keys.E))  // roll right
                 cameraUp = Vector3.Transform(cameraUp, Matrix.CreateFromAxisAngle(cameraDirection, -MathHelper.PiOver4 / 45));
 
-            // Mouse controsl
+            // Mouse controls
             if (mPrev.LeftButton == ButtonState.Released && mNow.LeftButton == ButtonState.Pressed)
             {
-
+                mMove = mNow;
+                moveDirection = cameraDirection;    // save camera vectors on initial click
+                moveUp = cameraUp;
             }
             if (!paused && mNow.LeftButton==ButtonState.Pressed)
             {
-                //cameraDirection = Vector3.Transform(initDirection,      // left-right rotate
-                //    Matrix.CreateFromAxisAngle(cameraUp, (MathHelper.PiOver4 / 350) * (Game.Window.ClientBounds.Width / 2 - mNow.X)));
-                //cameraDirection = Vector3.Transform(cameraDirection,    // up-down
-                //    Matrix.CreateFromAxisAngle(Vector3.Cross(cameraUp, cameraDirection), (MathHelper.Pi / 350) * (mNow.Y - Game.Window.ClientBounds.Height / 2)));
-                //cameraUp = Vector3.Transform(initUp,                    // up-down
-                //    Matrix.CreateFromAxisAngle(Vector3.Cross(cameraUp, cameraDirection), (MathHelper.Pi / 350) * (mNow.Y - Game.Window.ClientBounds.Height / 2)));
-
-                // TODO: NEED TO FREEZE VECTORS ON INITIAL CLICK
-                cameraDirection = Vector3.Transform(cameraDirection,    // left-right rotate
-                    Matrix.CreateFromAxisAngle(cameraUp, (MathHelper.PiOver4 / 150) * (mPrev.X - mNow.X)));
+                // the mouse view controls are still kind of weird. need to limit up-down rotation to 179 degrees up or down
+                Vector3 LR = Vector3.Transform(moveDirection,           // left-right rotate
+                    Matrix.CreateFromAxisAngle(initUp, (MathHelper.PiOver4 / 350) * (mMove.X - mNow.X)));
                 cameraDirection = Vector3.Transform(cameraDirection,    // up-down rotate
-                    Matrix.CreateFromAxisAngle(Vector3.Cross(cameraUp, cameraDirection), (MathHelper.Pi / 150) * (mNow.Y - mPrev.Y)));
-                cameraUp = Vector3.Transform(cameraUp,                  // up-down rotate
-                    Matrix.CreateFromAxisAngle(Vector3.Cross(cameraUp, cameraDirection), (MathHelper.Pi / 150) * (mNow.Y - mPrev.Y)));
+                    Matrix.CreateFromAxisAngle(Vector3.Cross(moveUp, cameraDirection), (MathHelper.Pi / 350) * (mNow.Y - mMove.Y)));
+                cameraUp = Vector3.Transform(moveUp,                    // up-down rotate
+                    Matrix.CreateFromAxisAngle(Vector3.Cross(initUp, moveDirection), (MathHelper.Pi / 350) * (mNow.Y - mMove.Y)));
+                cameraDirection += LR;
                 cameraDirection.Normalize();
                 cameraUp.Normalize();
             }
 
-            // Recreate view matrix
-            CreateLookAt();
-
-            // Save inputs
-            kPrev = kNow;
+            CreateLookAt();     // Recreate view matrix
+            kPrev = kNow;       // Save inputs
             mPrev = mNow;
 
             base.Update(gameTime);

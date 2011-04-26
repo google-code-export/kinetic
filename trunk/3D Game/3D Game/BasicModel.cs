@@ -9,21 +9,23 @@ namespace _3D_Game
 {
     class BasicModel
     {
+        public string name { get; protected set; }      // name of model
         public Model model { get; protected set; }      // to represent 3D model
         protected Matrix world = Matrix.Identity;       // transform matrix
 
         //// CONSTRUCTOR
-        public BasicModel(Model m)
+        public BasicModel(Model m, string n, Vector3 position)
         {
             model = m;
+            name = n;
+            Translate(position);
         }
 
-        //// UPDATE
         public virtual void Update()
         {
+            //model.Meshes[0].MeshParts[0].VertexOffset;
         }
 
-        //// DRAW
         public void Draw(Camera camera)
         {
             Matrix[] transforms = new Matrix[model.Bones.Count];
@@ -43,12 +45,14 @@ namespace _3D_Game
             }
         }
 
-        //// GETWORLD
+        public void Translate(Vector3 trans)
+        {
+            world *= Matrix.CreateTranslation(trans);
+        }
+
         public virtual Matrix GetWorld()
         {
             return world;
         }
-
-
     }
 }

@@ -17,12 +17,13 @@ namespace _3D_Game
     /// </summary>
     public class ModelManager : DrawableGameComponent
     {
-        List<BasicModel> models = new List<BasicModel>();
+        List<BasicModel> models = new List<BasicModel>();   // change this to array later?
+        public bool paused { get; set; }
 
         public ModelManager(Game game)
             : base(game)
         {
-            // TODO: Construct any child components here
+            paused = false;
         }
 
         /// <summary>
@@ -31,15 +32,15 @@ namespace _3D_Game
         /// </summary>
         public override void Initialize()
         {
-            // TODO: Add your initialization code here
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            models.Add(new BasicModel(Game.Content.Load<Model>(@"Models\tower")));
-            //models.Add(new SpinningEnemy(Game.Content.Load<Model>(@"Models\spaceship")));
+            //models.Add(new BasicModel(Game.Content.Load<Model>(@"Models\tower"), "dummy"));
+            models.Add(new BasicModel(Game.Content.Load<Model>(@"Models\box"), "box", new Vector3(0, 10, 0)));
+            models.Add(new BasicModel(Game.Content.Load<Model>(@"Models\plane"), "plane", new Vector3(0, -1, 0)));
 
             base.LoadContent();
         }
@@ -53,7 +54,7 @@ namespace _3D_Game
             // update each models
             for (int i = 0; i < models.Count; ++i)
             {
-                models[i].Update();
+                if (!paused) models[i].Update();
             }
 
             base.Update(gameTime);
@@ -68,6 +69,11 @@ namespace _3D_Game
             }
 
             base.Draw(gameTime);
+        }
+
+        public int GetModelCount()
+        {
+            return models.Count;
         }
     }
 }

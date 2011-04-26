@@ -12,12 +12,25 @@ using Microsoft.Xna.Framework.Media;
 namespace _3D_Game
 {
     /// <summary>
-    /// This is the main type for your game
+    /// Kinetic, aka Angry Balls. Destroy towers by throwing balls at them.
+    /// This is the main game class (duh)
     /// </summary>
     public class Game3D : Microsoft.Xna.Framework.Game
     {
-    //========================================================================================
-    
+        #region Constants
+
+        // Define the default window size here
+        const int screenWidth = 1400;
+        const int screenHeight = 900;
+
+        // environment/physics constants: these will probably get
+        // moved to somewhere else later ..
+        const float g = 9.81f;
+
+        #endregion
+
+        #region Fields
+
         // Input Device States
         KeyboardState kNow;
         KeyboardState kPrev;
@@ -43,7 +56,9 @@ namespace _3D_Game
         bool debug = true;
         bool paused = false;
 
-    //========================================================================================
+        #endregion
+
+        #region Initizialize
 
         public Game3D()
         {
@@ -51,7 +66,6 @@ namespace _3D_Game
             Content.RootDirectory = "Content";
         }
 
-        //// INITIALIZE
         protected override void Initialize()
         {
             // input devices
@@ -61,12 +75,12 @@ namespace _3D_Game
             mPrev = mNow;
 
             // graphics
-            graphics.PreferredBackBufferWidth = 1200;
-            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
             graphics.ApplyChanges();
 
             // camera
-            camera = new Camera(this, new Vector3(0, 20, 50), Vector3.Zero, Vector3.Up);
+            camera = new Camera(this, new Vector3(0, 0, 50), Vector3.Zero, Vector3.Up);
             Components.Add(camera);
 
             // models
@@ -77,7 +91,6 @@ namespace _3D_Game
             base.Initialize();
         }
 
-        //// LOADCONTENT
         protected override void LoadContent()
         {
             // load sprites
@@ -87,11 +100,11 @@ namespace _3D_Game
             fontSystem = Content.Load<SpriteFont>(@"Fonts\system");
         }
 
-        //// UNLOADCONTENT
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
+
+        #endregion
 
         //// UPDATE
         protected override void Update(GameTime gameTime)
@@ -123,6 +136,11 @@ namespace _3D_Game
             if (debug) DrawDebug();
         }
 
+        #region Debug
+        /// <summary>
+        /// DrawDebug: format some information that will be good to know for debugging, then
+        /// draw it onto the screen when debug flag is set.
+        /// </summary>
         protected void DrawDebug()
         {
             // debug lines
@@ -151,6 +169,8 @@ namespace _3D_Game
             string dbg_draw1 = "window size " + graphics.PreferredBackBufferWidth + "\u2219" + graphics.PreferredBackBufferHeight;
             string dbg_draw2 = "'~' to toggle debug info";
             string dbg_draw3 = "'R' to reset camera";
+            //string dbg_mods1 = "    model: " + modelManager.models[0].name;
+            //string dbg_mods2 = "meshcount: " + modelManager.models[0].GetMeshCount();
 
             // draw text
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -165,11 +185,14 @@ namespace _3D_Game
                 spriteBatch.DrawString(fontSystem, dbg_draw1, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw1).X, 10), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_draw2, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw2).X, 22), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_draw3, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw3).X, 34), Color.Black);
+                //spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(10, graphics.PreferredBackBufferHeight - 22 - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
+                //spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, graphics.PreferredBackBufferHeight - 10 - fontSystem.MeasureString(dbg_mods2).Y), Color.Black);
             spriteBatch.End();
 
             // Fix depth stuff before drawing 3D !!
             GraphicsDevice.BlendState = BlendState.Opaque;
             GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
+        #endregion
     }
 }

@@ -109,11 +109,11 @@
   <ItemGroup>
     <Compile Include="BasicModel.cs" />
     <Compile Include="Camera.cs" />
+    <Compile Include="Collider.cs" />
     <Compile Include="ModelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Kinetic.cs" />
-    <Compile Include="RotatingModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
