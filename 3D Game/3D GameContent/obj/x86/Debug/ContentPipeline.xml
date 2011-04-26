@@ -70,6 +70,46 @@
       <Output>obj\x86\Debug\Models\tower_0.xml</Output>
       <Time>2011-04-24T17:47:51.6242578-05:00</Time>
     </Item>
+    <Item>
+      <Source>Models\box.fbx</Source>
+      <Name>Models\box</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\box.xnb</Output>
+      <Time>2011-04-26T00:26:53.7219141-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\box_0.xml</Key>
+        <Value>2011-04-26T00:30:09.5021875-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\box.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\box_0.xml</Output>
+      <Time>2011-04-26T00:26:53.7219141-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\plane.fbx</Source>
+      <Name>Models\plane</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\plane.xnb</Output>
+      <Time>2011-04-26T02:30:33.79125-05:00</Time>
+      <Dependency>
+        <Key>obj\x86\Debug\Models\plane_0.xml</Key>
+        <Value>2011-04-26T02:39:30.0627344-05:00</Value>
+      </Dependency>
+    </Item>
+    <Item>
+      <Source>Models\plane.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\plane_0.xml</Output>
+      <Time>2011-04-26T02:30:33.79125-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

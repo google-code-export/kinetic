@@ -8,3 +8,5 @@ C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\obj\x86\Debug\R
 C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\obj\x86\Debug\3D Game.exe
 C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\obj\x86\Debug\3D Game.pdb
+C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\box.xnb
+C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\plane.xnb
