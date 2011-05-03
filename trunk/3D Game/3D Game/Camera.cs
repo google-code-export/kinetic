@@ -1,3 +1,5 @@
+#define MATRIXROTATE
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +11,15 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
 namespace _3D_Game
 {
     /// <summary>
-    /// The Camera class implements functionality for navigating the 3d environment
+    /// The Camera class implements functionality for navigating the 3d environment.
+    /// Roll control is limited to keyboard, because controlling it with the mouse can
+    /// get really really disorienting.
     /// TODO:
-    /// - change camera into arcball camera w/ keyboard control for adjusting
+    /// - add mode for arcball camera w/ keyboard control for adjusting
     ///   y-location of anchor and 'orbiting' in x-z plane around anchor
-    /// - keep mouse rotation, but only for looking up and down
     /// </summary>
     public class Camera : Microsoft.Xna.Framework.GameComponent
     {
@@ -29,9 +31,9 @@ namespace _3D_Game
         public Vector3 cameraUp;
         Vector3 initPos;
         Vector3 initDirection;
-        Vector3 initUp;
         Vector3 moveDirection;
         Vector3 moveUp;
+        Quaternion qRotate;
         float speed = 1;
 
         // Input/Controls
@@ -54,7 +56,7 @@ namespace _3D_Game
             cameraUp = up;
             initPos = cameraPosition;
             initDirection = cameraDirection;    // keep these the same
-            initUp = cameraUp;                  // ...
+            qRotate = Quaternion.Identity;
             CreateLookAt();
 
             projection = Matrix.CreatePerspectiveFieldOfView(
@@ -85,7 +87,7 @@ namespace _3D_Game
             {
                 cameraPosition = initPos;
                 cameraDirection = initDirection;
-                cameraUp = initUp;
+                cameraUp = Vector3.Up;
                 Mouse.SetPosition(Game.Window.ClientBounds.Width / 2, Game.Window.ClientBounds.Height / 2);
             }
 
@@ -95,9 +97,9 @@ namespace _3D_Game
             if (Keyboard.GetState().IsKeyDown(Keys.S))  // backward
                 cameraPosition -= cameraDirection * speed;
             if (Keyboard.GetState().IsKeyDown(Keys.A))  // left
-                cameraPosition -= Vector3.Cross(cameraDirection, initUp) * speed;
+                cameraPosition -= Vector3.Cross(cameraDirection, Vector3.Up) * speed;
             if (Keyboard.GetState().IsKeyDown(Keys.D))  // right
-                cameraPosition += Vector3.Cross(cameraDirection, initUp) * speed;
+                cameraPosition += Vector3.Cross(cameraDirection, Vector3.Up) * speed;
             if (Keyboard.GetState().IsKeyDown(Keys.Q))  // roll left
                 cameraUp = Vector3.Transform(cameraUp, Matrix.CreateFromAxisAngle(cameraDirection, MathHelper.PiOver4 / 45));
             if (Keyboard.GetState().IsKeyDown(Keys.E))  // roll right
@@ -110,18 +112,29 @@ namespace _3D_Game
                 moveDirection = cameraDirection;    // save camera vectors on initial click
                 moveUp = cameraUp;
             }
-            if (!paused && mNow.LeftButton==ButtonState.Pressed)
+            if (!paused && mNow.LeftButton == ButtonState.Pressed)
             {
-                // the mouse view controls are still kind of weird. need to limit up-down rotation to 179 degrees up or down
-                Vector3 LR = Vector3.Transform(moveDirection,           // left-right rotate
-                    Matrix.CreateFromAxisAngle(initUp, (MathHelper.PiOver4 / 350) * (mMove.X - mNow.X)));
+#if MATRIXROTATE
+                //Vector3 LR = Vector3.Transform(moveDirection,
+                cameraDirection = Vector3.Transform(moveDirection,           // left-right rotate
+                    Matrix.CreateFromAxisAngle(Vector3.Up, (MathHelper.PiOver4 / 350) * (mMove.X - mNow.X)));
                 cameraDirection = Vector3.Transform(cameraDirection,    // up-down rotate
                     Matrix.CreateFromAxisAngle(Vector3.Cross(moveUp, cameraDirection), (MathHelper.Pi / 350) * (mNow.Y - mMove.Y)));
-                cameraUp = Vector3.Transform(moveUp,                    // up-down rotate
-                    Matrix.CreateFromAxisAngle(Vector3.Cross(initUp, moveDirection), (MathHelper.Pi / 350) * (mNow.Y - mMove.Y)));
-                cameraDirection += LR;
+                //cameraUp = Vector3.Transform(moveUp,                    // up-down rotate
+                //    Matrix.CreateFromAxisAngle(Vector3.Cross(initUp, moveDirection), (MathHelper.Pi / 350) * (mNow.Y - mMove.Y)));
+                //cameraDirection += LR;
                 cameraDirection.Normalize();
-                cameraUp.Normalize();
+                //cameraUp.Normalize();
+#endif
+#if QROTATE
+                // or we can use quaternions? 
+                float yaw = (mPrev.X - mNow.X) / 1400f;
+                float pitch = (mPrev.Y - mNow.Y) / 900f;
+                Quaternion rot = Quaternion.CreateFromAxisAngle(Vector3.Right, pitch) * Quaternion.CreateFromAxisAngle(Vector3.Up, yaw);
+                qRotate *= rot;
+                cameraUp = Vector3.Transform(cameraUp, Matrix.CreateFromQuaternion(qRotate));
+                cameraDirection = Vector3.Transform(cameraDirection, Matrix.CreateFromQuaternion(qRotate));
+#endif
             }
 
             CreateLookAt();     // Recreate view matrix

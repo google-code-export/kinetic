@@ -23,7 +23,6 @@ namespace _3D_Game
 
         public virtual void Update()
         {
-            //model.Meshes[0].MeshParts[0].VertexOffset;
         }
 
         public void Draw(Camera camera)
