@@ -25,7 +25,10 @@ namespace _3D_Game
 
         // environment/physics constants: these will probably get
         // moved to somewhere else later ..
-        const float g = 9.81f;
+        const float g = 9.81f;  //gravity
+        const int xBound = 180;
+        const int yBound = 100;
+        const int zBound = 180;
 
         #endregion
 
@@ -106,6 +109,8 @@ namespace _3D_Game
 
         #endregion
 
+        #region Update
+
         //// UPDATE
         protected override void Update(GameTime gameTime)
         {
@@ -135,6 +140,8 @@ namespace _3D_Game
             // debug
             if (debug) DrawDebug();
         }
+
+        #endregion
 
         #region Debug
         /// <summary>
