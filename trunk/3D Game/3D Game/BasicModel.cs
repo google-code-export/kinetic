@@ -7,6 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace _3D_Game
 {
+    /// <summary>
+    /// This class contains a drawable object model and handles the
+    /// draw effects associated with it
+    /// </summary>
     class BasicModel
     {
         public string name { get; protected set; }      // name of model
@@ -20,11 +24,9 @@ namespace _3D_Game
             name = n;
             Translate(position);
         }
-
         public virtual void Update()
         {
         }
-
         public void Draw(Camera camera)
         {
             Matrix[] transforms = new Matrix[model.Bones.Count];
@@ -48,8 +50,11 @@ namespace _3D_Game
         {
             world *= Matrix.CreateTranslation(trans);
         }
-
-        public virtual Matrix GetWorld()
+        public void SetPos(Vector3 newPos)
+        {
+            world = Matrix.CreateTranslation(newPos);
+        }
+        public Matrix GetWorld()
         {
             return world;
         }

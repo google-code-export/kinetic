@@ -83,7 +83,7 @@ namespace _3D_Game
             graphics.ApplyChanges();
 
             // camera
-            camera = new Camera(this, new Vector3(0, 0, 50), Vector3.Zero, Vector3.Up);
+            camera = new Camera(this, new Vector3(380, 125, 0), new Vector3(0, -20, 0), Vector3.Up);
             Components.Add(camera);
 
             // models
@@ -118,7 +118,11 @@ namespace _3D_Game
             kNow = Keyboard.GetState();
             if (kNow.IsKeyDown(Keys.Escape)) this.Exit();
             debug = (kNow.IsKeyUp(Keys.OemTilde) && kPrev.IsKeyDown(Keys.OemTilde)) ? !debug : debug;
-            paused = (kNow.IsKeyUp(Keys.P) && kPrev.IsKeyDown(Keys.P)) ? !paused : paused;
+            if (kNow.IsKeyUp(Keys.P) && kPrev.IsKeyDown(Keys.P))
+            {
+                paused = !paused;
+                modelManager.paused = paused;
+            }
 
             // Mouse controls
             mNow = Mouse.GetState();
@@ -150,6 +154,9 @@ namespace _3D_Game
         /// </summary>
         protected void DrawDebug()
         {
+            int mg = 10;
+            int lh = 12;
+
             // debug lines
             string dbg_game1 = (paused ? "\u25a0 paused" : "\u25a1 running");
             string dbg_cam1 = "cameraPos["
@@ -174,26 +181,31 @@ namespace _3D_Game
             string dbg_mous2 = ((mNow.LeftButton == ButtonState.Pressed) ? "\u25a0" : "\u25a1") + " mouseLeft";
             string dbg_mous3 = ((mNow.RightButton == ButtonState.Pressed) ? "\u25a0" : "\u25a1") + " mouseRight";
             string dbg_draw1 = "window size " + graphics.PreferredBackBufferWidth + "\u2219" + graphics.PreferredBackBufferHeight;
-            string dbg_draw2 = "'~' to toggle debug info";
-            string dbg_draw3 = "'R' to reset camera";
-            //string dbg_mods1 = "    model: " + modelManager.models[0].name;
+            string dbg_ctrl1 =     "~ : toggle debug info";
+            string dbg_ctrl2 =  "w/s/a/d : directional move ";
+            string dbg_ctrl3 =   "r/f : up/down          ";
+            string dbg_ctrl4 = "space : reset camera     ";
+            string dbg_mods1 = "models: " + modelManager.GetModelCount();
+            //string dbg_mods2 = "meshes: " + modelManager.GetMeshCount();
             //string dbg_mods2 = "meshcount: " + modelManager.models[0].GetMeshCount();
 
             // draw text
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                spriteBatch.DrawString(fontSystem, dbg_game1, new Vector2(10, 10), paused ? Color.Red : Color.Blue);
-                spriteBatch.DrawString(fontSystem, dbg_cam1, new Vector2(10, 22), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_cam2, new Vector2(10, 34), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_cam3, new Vector2(10, 46), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_mous1, new Vector2(10, 70), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_mous2, new Vector2(10, 82), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_mous3, new Vector2(10, 94), Color.Black);
-                spriteBatch.DrawString(fontSystem, "\u2609", new Vector2(mNow.X, mNow.Y), Color.Black); // mouse cursor
-                spriteBatch.DrawString(fontSystem, dbg_draw1, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw1).X, 10), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_draw2, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw2).X, 22), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_draw3, new Vector2(graphics.PreferredBackBufferWidth - 10 - fontSystem.MeasureString(dbg_draw3).X, 34), Color.Black);
-                //spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(10, graphics.PreferredBackBufferHeight - 22 - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
-                //spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, graphics.PreferredBackBufferHeight - 10 - fontSystem.MeasureString(dbg_mods2).Y), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_game1, new Vector2(mg, mg + 0*lh), paused ? Color.Red : Color.Blue);
+                spriteBatch.DrawString(fontSystem, dbg_cam1,  new Vector2(mg, mg + 1*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_cam2,  new Vector2(mg, mg + 2*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_cam3,  new Vector2(mg, mg + 3*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mous1, new Vector2(mg, mg + 5*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mous2, new Vector2(mg, mg + 6*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mous3, new Vector2(mg, mg + 7*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, "\u2609",  new Vector2(mNow.X, mNow.Y), Color.Black); // mouse cursor
+                spriteBatch.DrawString(fontSystem, dbg_draw1, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_draw1).X, mg + 0*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl1, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl1).X, mg + 1*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl2, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl2).X, mg + 2*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl3, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl3).X, mg + 3*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl4, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl4).X, mg + 4*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(mg, graphics.PreferredBackBufferHeight - (mg + 1*lh) - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
+                //spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, graphics.PreferredBackBufferHeight - (mg + 0*lh) - fontSystem.MeasureString(dbg_mods2).Y), Color.Black);
             spriteBatch.End();
 
             // Fix depth stuff before drawing 3D !!
