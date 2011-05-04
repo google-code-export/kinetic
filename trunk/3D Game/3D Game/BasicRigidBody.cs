@@ -75,12 +75,12 @@ namespace _3D_Game
             pos = pos + TSTEP * (v1_dot + v2_dot*2f + v3_dot*2f + v4_dot) / 6.0f;
         }
 
-        // apply environment bounds
+        // apply environment bounds. VERY SLOPPY. will be improved later
         public void Bounds()
         {
             float? xB = null, yB = null, zB = null;
 
-            if (Math.Abs(pos.X) > 150)
+            if (Math.Abs(pos.X) > 125)
             {
                 vel.X = -vel.X;
                 //xB = (pos.X > 0) ? 150 : -150;
@@ -90,7 +90,7 @@ namespace _3D_Game
                 vel.Y = -vel.Y;
                 yB = (pos.Y > 0) ? 100 : -100;
             }
-            if (Math.Abs(pos.Z) > 150)
+            if (Math.Abs(pos.Z) > 125)
             {
                 vel.Z = -vel.Z;
                 //zB = (pos.Z > 0) ? 150 : -150;
