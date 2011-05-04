@@ -108,12 +108,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicModel.cs" />
+    <Compile Include="BasicRigidBody.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Collider.cs" />
     <Compile Include="ModelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Kinetic.cs" />
+    <Compile Include="RigidBodyManager.cs" />
     <Compile Include="testBlock.cs" />
   </ItemGroup>
   <ItemGroup>
