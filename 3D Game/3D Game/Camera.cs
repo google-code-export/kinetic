@@ -62,7 +62,7 @@ namespace _3D_Game
             CreateLookAt();
 
             projection = Matrix.CreatePerspectiveFieldOfView(
-                MathHelper.PiOver4,
+                MathHelper.PiOver4 * 1.4f,
                 (float)Game.Window.ClientBounds.Width / (float)Game.Window.ClientBounds.Height,
                 1, 3000);
         }

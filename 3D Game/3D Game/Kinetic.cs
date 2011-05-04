@@ -187,7 +187,6 @@ namespace _3D_Game
             string dbg_ctrl4 = "space : reset camera     ";
             string dbg_mods1 = "models: " + modelManager.GetModelCount();
             //string dbg_mods2 = "meshes: " + modelManager.GetMeshCount();
-            //string dbg_mods2 = "meshcount: " + modelManager.models[0].GetMeshCount();
 
             // draw text
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
