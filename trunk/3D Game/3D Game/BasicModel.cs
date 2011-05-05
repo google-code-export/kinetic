@@ -11,18 +11,20 @@ namespace _3D_Game
     /// This class contains a drawable object model and handles the
     /// draw effects associated with it
     /// </summary>
-    class BasicModel
+    public class BasicModel
     {
         public string name { get; protected set; }      // name of model
         public Model model { get; protected set; }      // to represent 3D model
         protected Matrix world = Matrix.Identity;       // transform matrix
+        protected Game game;
 
         //// CONSTRUCTOR
-        public BasicModel(Model m, string n, Vector3 position)
+        public BasicModel(Game g, Model m, string n, Vector3 position)
         {
+            game = g;
             model = m;
             name = n;
-            Translate(position);
+            SetPos(position);
         }
         public virtual void Update()
         {
@@ -45,7 +47,6 @@ namespace _3D_Game
                 mesh.Draw();
             }
         }
-
         public void Translate(Vector3 trans)
         {
             world *= Matrix.CreateTranslation(trans);
