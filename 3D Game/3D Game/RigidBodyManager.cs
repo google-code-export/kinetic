@@ -16,15 +16,18 @@ namespace _3D_Game
     /// This is the collection of all RigidBody objects in the game. Objects
     /// that need physics must be associated with a RigidBody and added to the
     /// list here!
+    /// 
+    /// Currently this class isn't actually used for anything though ....
     /// </summary>
-    public class RigidBodyManager : Microsoft.Xna.Framework.GameComponent
+    public class RigidBodyManager : GameComponent
     {
-        List<BasicRigidBody> rBodies = new List<BasicRigidBody>();
+        public List<BasicRigidBody> rBodies;
         public bool paused { get; set; }
 
         public RigidBodyManager(Game game)
             : base(game)
         {
+            rBodies = new List<BasicRigidBody>();
             paused = false;
         }
 
@@ -33,8 +36,18 @@ namespace _3D_Game
             base.Initialize();
         }
 
+        public void addBody(ref BasicRigidBody body)
+        {
+            rBodies.Add(body);
+        }
+
         public override void Update(GameTime gameTime)
         {
+            foreach (BasicRigidBody rBody in rBodies)
+            {
+                rBody.Solve();
+                rBody.Bounds();
+            }
             base.Update(gameTime);
         }
     }

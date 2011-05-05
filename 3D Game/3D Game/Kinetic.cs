@@ -17,21 +17,6 @@ namespace _3D_Game
     /// </summary>
     public class Game3D : Microsoft.Xna.Framework.Game
     {
-        #region Constants
-
-        // Define the default window size here
-        const int screenWidth = 1400;
-        const int screenHeight = 900;
-
-        // environment/physics constants: these will probably get
-        // moved to somewhere else later ..
-        const float g = 9.81f;  //gravity
-        const int xBound = 180;
-        const int yBound = 100;
-        const int zBound = 180;
-
-        #endregion
-
         #region Fields
 
         // Input Device States
@@ -43,21 +28,26 @@ namespace _3D_Game
         // Drawing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        // Cameras
-        public Camera camera { get; protected set; }
-
-        // Models
-        ModelManager modelManager;
+        RasterizerState rs;
+        BasicEffect effect1;
+        VertexBuffer vBuffer;
+        VertexPositionColor[] verts;
 
         // Fonts
         public SpriteFont fontSansSerif;
         public SpriteFont fontSerif;
         public SpriteFont fontSystem;
 
+        // Cameras
+        public Camera camera { get; protected set; }
+
+        // Objects
+        ModelManager modelManager;
+
         // Game Flags
         bool debug = true;
         bool paused = false;
+        bool wires = false;
 
         #endregion
 
@@ -78,9 +68,14 @@ namespace _3D_Game
             mPrev = mNow;
 
             // graphics
-            graphics.PreferredBackBufferWidth = screenWidth;
-            graphics.PreferredBackBufferHeight = screenHeight;
+            rs = new RasterizerState();
+            rs.FillMode = FillMode.Solid;
+            GraphicsDevice.RasterizerState = rs;
+            graphics.PreferredBackBufferWidth = Globals.Width;
+            graphics.PreferredBackBufferHeight = Globals.Height;
             graphics.ApplyChanges();
+            effect1 = new BasicEffect(GraphicsDevice);
+            vBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), 6, BufferUsage.None);
 
             // camera
             camera = new Camera(this, new Vector3(380, 125, 0), new Vector3(0, -20, 0), Vector3.Up);
@@ -123,6 +118,20 @@ namespace _3D_Game
                 paused = !paused;
                 modelManager.paused = paused;
             }
+            if (kNow.IsKeyUp(Keys.D1) && kPrev.IsKeyDown(Keys.D1))
+            {
+                rs = new RasterizerState();
+                rs.FillMode = FillMode.WireFrame;
+                rs.CullMode = CullMode.None;
+                wires = true;
+            }
+            if (kNow.IsKeyUp(Keys.D2) && kPrev.IsKeyDown(Keys.D2))
+            {
+                rs = new RasterizerState();
+                rs.FillMode = FillMode.Solid;
+                rs.CullMode = CullMode.CullCounterClockwiseFace;
+                wires = false;
+            }
 
             // Mouse controls
             mNow = Mouse.GetState();
@@ -138,11 +147,33 @@ namespace _3D_Game
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.RasterizerState = rs;
 
             base.Draw(gameTime);
 
             // debug
-            if (debug) DrawDebug();
+            if (debug)
+            {
+                if (wires)
+                {
+                    verts = modelManager.GetBlockData(0).DrawAxes();
+                    vBuffer.SetData<VertexPositionColor>(verts);
+                    GraphicsDevice.SetVertexBuffer(vBuffer);
+
+                    effect1.World = Matrix.Identity;
+                    effect1.View = camera.view;
+                    effect1.Projection = camera.projection;
+                    effect1.VertexColorEnabled = true;
+
+                    foreach (EffectPass pass in effect1.CurrentTechnique.Passes)
+                    {
+                        pass.Apply();
+                        GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, verts, 0, 3);
+                    }
+                }
+
+                DrawDebug();
+            }
         }
 
         #endregion
@@ -180,13 +211,17 @@ namespace _3D_Game
                 + "]";
             string dbg_mous2 = ((mNow.LeftButton == ButtonState.Pressed) ? "\u25a0" : "\u25a1") + " mouseLeft";
             string dbg_mous3 = ((mNow.RightButton == ButtonState.Pressed) ? "\u25a0" : "\u25a1") + " mouseRight";
-            string dbg_draw1 = "window size " + graphics.PreferredBackBufferWidth + "\u2219" + graphics.PreferredBackBufferHeight;
+            string dbg_draw1 = "window size " + Globals.Width + "\u2219" + Globals.Height;
             string dbg_ctrl1 =     "~ : toggle debug info";
             string dbg_ctrl2 =  "w/s/a/d : directional move ";
             string dbg_ctrl3 =   "r/f : up/down          ";
             string dbg_ctrl4 = "space : reset camera     ";
             string dbg_mods1 = "models: " + modelManager.GetModelCount();
-            //string dbg_mods2 = "meshes: " + modelManager.GetMeshCount();
+            string dbg_mods2 = "obb1Pos["
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.X)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.Y)
+                + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.Z)
+                + "]";
 
             // draw text
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -198,13 +233,13 @@ namespace _3D_Game
                 spriteBatch.DrawString(fontSystem, dbg_mous2, new Vector2(mg, mg + 6*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_mous3, new Vector2(mg, mg + 7*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, "\u2609",  new Vector2(mNow.X, mNow.Y), Color.Black); // mouse cursor
-                spriteBatch.DrawString(fontSystem, dbg_draw1, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_draw1).X, mg + 0*lh), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_ctrl1, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl1).X, mg + 1*lh), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_ctrl2, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl2).X, mg + 2*lh), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_ctrl3, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl3).X, mg + 3*lh), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_ctrl4, new Vector2(graphics.PreferredBackBufferWidth - mg - fontSystem.MeasureString(dbg_ctrl4).X, mg + 4*lh), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(mg, graphics.PreferredBackBufferHeight - (mg + 1*lh) - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
-                //spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, graphics.PreferredBackBufferHeight - (mg + 0*lh) - fontSystem.MeasureString(dbg_mods2).Y), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_draw1, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_draw1).X, mg + 0*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl1, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl1).X, mg + 1*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl2, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl2).X, mg + 2*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl3, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl3).X, mg + 3*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl4, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl4).X, mg + 4*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(mg, Globals.Height - (mg + 1*lh) - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
+                //spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, Globals.Height - (mg + 0*lh) - fontSystem.MeasureString(dbg_mods2).Y), Color.Black);
             spriteBatch.End();
 
             // Fix depth stuff before drawing 3D !!
