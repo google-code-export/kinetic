@@ -16,12 +16,12 @@ namespace _3D_Game
         public string name { get; protected set; }      // name of model
         public Model model { get; protected set; }      // to represent 3D model
         protected Matrix world = Matrix.Identity;       // transform matrix
-        protected Game game;
+        //protected Game game;
 
         //// CONSTRUCTOR
-        public BasicModel(Game g, Model m, string n, Vector3 position)
+        public BasicModel(Model m, string n, Vector3 position)
         {
-            game = g;
+            //game = g;
             model = m;
             name = n;
             SetPos(position);
@@ -47,13 +47,13 @@ namespace _3D_Game
                 mesh.Draw();
             }
         }
-        public void Translate(Vector3 trans)
-        {
-            world *= Matrix.CreateTranslation(trans);
-        }
         public void SetPos(Vector3 newPos)
         {
             world = Matrix.CreateTranslation(newPos);
+        }
+        public void SetRot(Quaternion newRot)
+        {
+            world *= Matrix.CreateFromQuaternion(newRot);
         }
         public Matrix GetWorld()
         {

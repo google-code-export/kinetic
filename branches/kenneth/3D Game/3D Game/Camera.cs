@@ -37,7 +37,6 @@ namespace _3D_Game
 #if QROTATE
         Quaternion qRotate;
 #endif
-        float speed = 2;
 
         // Input/Controls
         KeyboardState kNow;
@@ -94,17 +93,17 @@ namespace _3D_Game
 
             // Keyboard controls
             if (Keyboard.GetState().IsKeyDown(Keys.W))  // forward
-                cameraPosition += cameraDirection * speed;
+                cameraPosition += cameraDirection * Globals.cSpeed;
             if (Keyboard.GetState().IsKeyDown(Keys.S))  // backward
-                cameraPosition -= cameraDirection * speed;
+                cameraPosition -= cameraDirection * Globals.cSpeed;
             if (Keyboard.GetState().IsKeyDown(Keys.A))  // left
-                cameraPosition -= Vector3.Cross(cameraDirection, Vector3.Up) * speed;
+                cameraPosition -= Vector3.Cross(cameraDirection, Vector3.Up) * Globals.cSpeed;
             if (Keyboard.GetState().IsKeyDown(Keys.D))  // right
-                cameraPosition += Vector3.Cross(cameraDirection, Vector3.Up) * speed;
+                cameraPosition += Vector3.Cross(cameraDirection, Vector3.Up) * Globals.cSpeed;
             if (Keyboard.GetState().IsKeyDown(Keys.R))  // up
-                cameraPosition += Vector3.Up * speed;
+                cameraPosition += Vector3.Up * Globals.cSpeed;
             if (Keyboard.GetState().IsKeyDown(Keys.F))  // down
-                cameraPosition -= Vector3.Up * speed;
+                cameraPosition -= Vector3.Up * Globals.cSpeed;
             //if (Keyboard.GetState().IsKeyDown(Keys.Q))  // roll left
                 //cameraUp = Vector3.Transform(cameraUp, Matrix.CreateFromAxisAngle(cameraDirection, MathHelper.PiOver4 / 45));
             //if (Keyboard.GetState().IsKeyDown(Keys.E))  // roll right

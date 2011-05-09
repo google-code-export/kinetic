@@ -14,6 +14,7 @@ namespace _3D_Game
         #region Fields
 
         public Vector3 pos { get; protected set; }
+        public Quaternion rot { get; protected set; }
         public CollisionVolume obb { get; protected set; }
         private Vector3 vel;
         private Vector3 accel;
@@ -28,6 +29,7 @@ namespace _3D_Game
         public RigidBody(Vector3 p, Vector3 v, float m)
         {
             pos = p;
+            rot = Quaternion.Identity;
             vel = v;
             //accel = Vector3.Zero;
             force = Vector3.Zero;
@@ -36,7 +38,7 @@ namespace _3D_Game
 
         #endregion
 
-        #region Physics Solver
+        #region Solver + Collisions
 
         // Summary:
         //   ApplyForces: calculate aggregate force effect from all sources
@@ -103,10 +105,6 @@ namespace _3D_Game
                 (yB == null) ? pos.Y : (float)yB,
                 (zB == null) ? pos.Z : (float)zB);
         }
-
-        #endregion
-
-        #region Collisions
 
         public void setBB(Vector3 e)
         {
