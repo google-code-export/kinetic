@@ -156,19 +156,21 @@ namespace _3D_Game
             {
                 if (wires)
                 {
-                    verts = modelManager.GetBlockData(0).DrawAxes();
-                    vBuffer.SetData<VertexPositionColor>(verts);
-                    GraphicsDevice.SetVertexBuffer(vBuffer);
-
                     effect1.World = Matrix.Identity;
                     effect1.View = camera.view;
                     effect1.Projection = camera.projection;
                     effect1.VertexColorEnabled = true;
 
-                    foreach (EffectPass pass in effect1.CurrentTechnique.Passes)
+                    for (int i = 0; i < modelManager.GetModelCount() - 1; i++)
                     {
-                        pass.Apply();
-                        GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, verts, 0, 3);
+                        verts = modelManager.GetBlockData(i).DrawAxes();
+                        vBuffer.SetData<VertexPositionColor>(verts);
+                        GraphicsDevice.SetVertexBuffer(vBuffer);
+                        foreach (EffectPass pass in effect1.CurrentTechnique.Passes)
+                        {
+                            pass.Apply();
+                            GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.LineList, verts, 0, 3);
+                        }
                     }
                 }
 
@@ -216,6 +218,7 @@ namespace _3D_Game
             string dbg_ctrl2 =  "w/s/a/d : directional move ";
             string dbg_ctrl3 =   "r/f : up/down          ";
             string dbg_ctrl4 = "space : reset camera     ";
+            string dbg_ctrl5 = "  1/2 : wires/solid      ";
             string dbg_mods1 = "models: " + modelManager.GetModelCount();
             string dbg_mods2 = "obb1Pos["
                 + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.X)
@@ -238,6 +241,7 @@ namespace _3D_Game
                 spriteBatch.DrawString(fontSystem, dbg_ctrl2, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl2).X, mg + 2*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_ctrl3, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl3).X, mg + 3*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_ctrl4, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl4).X, mg + 4*lh), Color.Black);
+                spriteBatch.DrawString(fontSystem, dbg_ctrl5, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl5).X, mg + 5*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(mg, Globals.Height - (mg + 1*lh) - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
                 //spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, Globals.Height - (mg + 0*lh) - fontSystem.MeasureString(dbg_mods2).Y), Color.Black);
             spriteBatch.End();

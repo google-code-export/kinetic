@@ -11,7 +11,7 @@ namespace _3D_Game
 {
     public class TestBlock : BasicModel
     {
-        BasicRigidBody pBody;
+        RigidBody pBody;
         Quaternion qRotate;
         float speed = 4f;
 
@@ -23,7 +23,7 @@ namespace _3D_Game
             float ry = (float)random.NextDouble() * speed / 2f;
             float rz = (float)random.NextDouble() * speed;
             qRotate = Quaternion.Identity;
-            pBody = new BasicRigidBody(Vector3.Zero, new Vector3(rx, ry, rz), 1.0f);
+            pBody = new RigidBody(Vector3.Zero, new Vector3(rx, ry, rz), 1.0f);
 
             // visual effects
             foreach (ModelMesh mesh in model.Meshes)

@@ -21,13 +21,13 @@ namespace _3D_Game
     /// </summary>
     public class RigidBodyManager : GameComponent
     {
-        public List<BasicRigidBody> rBodies;
+        public List<RigidBody> rBodies;
         public bool paused { get; set; }
 
         public RigidBodyManager(Game game)
             : base(game)
         {
-            rBodies = new List<BasicRigidBody>();
+            rBodies = new List<RigidBody>();
             paused = false;
         }
 
@@ -36,14 +36,14 @@ namespace _3D_Game
             base.Initialize();
         }
 
-        public void addBody(ref BasicRigidBody body)
+        public void addBody(ref RigidBody body)
         {
             rBodies.Add(body);
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (BasicRigidBody rBody in rBodies)
+            foreach (RigidBody rBody in rBodies)
             {
                 rBody.Solve();
                 rBody.Bounds();

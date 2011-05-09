@@ -20,6 +20,6 @@ namespace _3D_Game
         public const int zBound = 125;
 
         // item parameters
-        public const int blockCount = 1;
+        public const int blockCount = 10;
     }
 }
