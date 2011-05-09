@@ -1,6 +1,0 @@
-Content\Models\donut.xnb
-Content\Models\spaceship.xnb
-Content\Fonts\system.xnb
-Content\Models\tower.xnb
-Content\Models\box.xnb
-Content\Models\plane.xnb
