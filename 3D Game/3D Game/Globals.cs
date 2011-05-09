@@ -13,8 +13,10 @@ namespace _3D_Game
         public const int Height = 900;
         
         // environment and physics
-        public const float t = 0.22f;   // time step for solver
-        public const float g = -9.81f;   // gravity
+        public const float t = 0.22f;       // time step for solver
+        public const float g = -9.81f;      // gravity
+        public const float cSpeed = 2.0f;    // default camera speed
+        public const float bSpeed = 4.0f;   // default block speed
         public const int xBound = 125;
         public const int yBound = 100;
         public const int zBound = 125;

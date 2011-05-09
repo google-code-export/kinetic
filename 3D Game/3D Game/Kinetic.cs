@@ -42,7 +42,7 @@ namespace _3D_Game
         public Camera camera { get; protected set; }
 
         // Objects
-        ModelManager modelManager;
+        ObjectManager modelManager;
 
         // Game Flags
         bool debug = true;
@@ -82,7 +82,7 @@ namespace _3D_Game
             Components.Add(camera);
 
             // models
-            modelManager = new ModelManager(this);
+            modelManager = new ObjectManager(this);
             Components.Add(modelManager);
 
             // other stuff
@@ -161,9 +161,10 @@ namespace _3D_Game
                     effect1.Projection = camera.projection;
                     effect1.VertexColorEnabled = true;
 
-                    for (int i = 0; i < modelManager.GetModelCount() - 1; i++)
+                    for (int i = 0; i < modelManager.GetObjCount() - 1; i++)
                     {
-                        verts = modelManager.GetBlockData(i).DrawAxes();
+                        verts = modelManager.GetAxes(i);
+                        //verts = modelManager.GetBlockData(i).DrawAxes();
                         vBuffer.SetData<VertexPositionColor>(verts);
                         GraphicsDevice.SetVertexBuffer(vBuffer);
                         foreach (EffectPass pass in effect1.CurrentTechnique.Passes)
@@ -219,7 +220,8 @@ namespace _3D_Game
             string dbg_ctrl3 =   "r/f : up/down          ";
             string dbg_ctrl4 = "space : reset camera     ";
             string dbg_ctrl5 = "  1/2 : wires/solid      ";
-            string dbg_mods1 = "models: " + modelManager.GetModelCount();
+            string dbg_mods1 = "objects: " + modelManager.GetObjCount();
+            //string dbg_mods1 = "models: " + modelManager.GetModelCount();
             string dbg_mods2 = "obb1Pos["
                 + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.X)
                 + String.Format("{0,10: ####.0000 ;-####.0000 }", camera.cameraPosition.Y)
