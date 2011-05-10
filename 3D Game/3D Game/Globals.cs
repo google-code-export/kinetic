@@ -15,11 +15,13 @@ namespace _3D_Game
         // environment and physics
         public const float t = 0.22f;       // time step for solver
         public const float g = -9.81f;      // gravity
-        public const float cSpeed = 2.0f;    // default camera speed
+        public const float cSpeed = 2.0f;   // default camera speed
         public const float bSpeed = 4.0f;   // default block speed
-        public const int xBound = 125;
-        public const int yBound = 100;
-        public const int zBound = 125;
+        public const float yEpsilon = 0.05f;    // for use in stacking hack
+        public const float mEpsilon = 0.0000005f;    // for use in OBB collision test
+        public const float xBound = 125f;
+        public const float yBound = 92.5f;
+        public const float zBound = 125f;
 
         // item parameters
         public const int blockCount = 10;

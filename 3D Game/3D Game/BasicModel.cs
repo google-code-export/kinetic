@@ -24,7 +24,7 @@ namespace _3D_Game
             //game = g;
             model = m;
             name = n;
-            SetPos(position);
+            world = Matrix.CreateTranslation(position);
         }
         public virtual void Update()
         {
@@ -47,9 +47,13 @@ namespace _3D_Game
                 mesh.Draw();
             }
         }
+        public void ResetWorld()
+        {
+            world = Matrix.Identity;
+        }
         public void SetPos(Vector3 newPos)
         {
-            world = Matrix.CreateTranslation(newPos);
+            world *= Matrix.CreateTranslation(newPos);
         }
         public void SetRot(Quaternion newRot)
         {

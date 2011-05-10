@@ -25,5 +25,21 @@ namespace _3D_Game
             axes[2] = new Vector3(0f, 0f, 1f);
             ex = e;
         }
+
+        public void SetRot(Quaternion q)
+        {
+            axes[0] = Vector3.UnitX;
+            axes[1] = Vector3.UnitY;
+            axes[2] = Vector3.UnitZ;
+
+            //axes[0] = Vector3.Transform(axes[0], q);
+            //axes[1] = Vector3.Transform(axes[1], q);
+            //axes[2] = Vector3.Transform(axes[2], q);
+            for (int i = 0; i < 3; i++)
+            {
+                axes[i] = Vector3.Transform(axes[i], q);
+                axes[i].Normalize();
+            }
+        }
     }
 }
