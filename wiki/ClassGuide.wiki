@@ -1,0 +1,31 @@
+#summary Summary of each .cs file in the codebase
+#labels Phase-Design,Phase-Implementation
+
+= Overview =
+This contains a summary of each .cs file in the codebase, along with a guide on where to find what.
+
+
+= Files / Classes =
+While most relevant parameters and values can be found in Globals.cs, it may be useful to know which classes take care of what. This is a description of each class:
+  ==Kinetic.cs==
+  The main game class. Graphics are initialized and managed here. Keyboard and Mouse controls are also managed here for the most part (ultimately, key/mouse interaction will be removed from other classes to keep things simple). The debug overlay is also managed from here, though information may be retrieved from deeper down its member tree.
+  ==Globals.cs==
+  A static class to hold all global parameters. The point of this is to avoid having arbitrary values assigned to variables: it's much easier to tweak/tune game performance when all the values you need to modify can be found in one place.
+  ==Camera.cs==
+  Implements the in-game camera. The camera is set to a free first-person space navigator with a fixed up-axis. In early development, we ruled out the controls for rolling, as it was really unnecessary and just gave everyone a headache. Currently, keyboard/mouse input for camera control are managed here. This may be moved to *`Kinetic.cs`* later.
+  ==ObjectManager.cs==
+  Contains all objects in the game, regardless of whether or not they are "plugged into" the physics system. The only exception to this is the OBB vector representations - these are drawn in *`Kinetic.cs`* because they are purely a debug feature, and not meant to be visible in the final game. _The collision detection and test functions are found in here._
+  ==Object.cs==
+  Whereas *`ObjectManager`* represented the collection of all objects in the game, each instance *`Object`* represents a single object. Each *`Object`* instance contains a *`BasicModel`* and corresponding *`RigidBody`* member.
+  ==BasicModel.cs==
+  The visual component of each object. The model for each object is contained here, as well as its world transform matrix. For objects that are plugged into the physics system, the world matrix is updated on each frame with info from the corresponding *`RigidBody`* class. *`TestBlock`* is a subclass of *`BasicModel`* that represents the building blocks.
+  ==RigidBody.cs==
+  Implements rigid body dynamics. This class contains all the physical/environment data for each object (position, velocity, rotation, etc.) and contains the solver and bounds-checking functions.
+  ==CollisionVolume.cs==
+  Implements the OBB representation for collision detection.
+  ==Program.cs==
+  XNA's auto-generated entry point for the game app.
+
+= Tips =
+  * since *`ObjectManager`* keeps track of all in-game objects, it also initializes all of them. The Object creation loop is found inside *`ObjectManager`*'s `LoadContent()` method.
+  * The number of blocks can be adjusted by modifying `blockCount` in *`Globals.cs`*
