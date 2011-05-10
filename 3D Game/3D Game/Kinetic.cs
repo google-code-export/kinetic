@@ -19,6 +19,13 @@ namespace _3D_Game
     {
         #region Fields
 
+        // GameState object
+        enum GameState { TitleScreen, InGame, LevelComplete };
+        GameState gameState;
+
+        // SpriteManager for 2D images
+        SpriteManager spriteManager;
+
         // Input Device States
         KeyboardState kNow;
         KeyboardState kPrev;
@@ -61,6 +68,13 @@ namespace _3D_Game
 
         protected override void Initialize()
         {
+            // initial GameState
+            gameState = GameState.TitleScreen;
+
+            // initialize spriteManager
+            spriteManager = new SpriteManager(this);
+            Components.Add(spriteManager);
+
             // input devices
             kNow = Keyboard.GetState();
             kPrev = kNow;
@@ -83,7 +97,7 @@ namespace _3D_Game
 
             // models
             modelManager = new ModelManager(this);
-            Components.Add(modelManager);
+            //Components.Add(modelManager);
 
             // other stuff
             base.Initialize();
@@ -135,6 +149,24 @@ namespace _3D_Game
 
             // Mouse controls
             mNow = Mouse.GetState();
+
+            switch (gameState)
+            {
+                case GameState.TitleScreen:
+                    if (mPrev.LeftButton == ButtonState.Pressed && mNow.LeftButton == ButtonState.Released)
+                    {
+                        gameState = GameState.InGame;
+                        spriteManager.hideSpriteManager();
+                        Components.Add(modelManager);
+                    }
+                    break;
+
+                case GameState.InGame:
+                    break;
+
+                case GameState.LevelComplete:
+                    break;
+            }
 
             // update input devices
             kPrev = kNow;

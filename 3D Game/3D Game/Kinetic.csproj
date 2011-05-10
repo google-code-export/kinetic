@@ -13,7 +13,7 @@
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
     <XnaPlatform>Windows</XnaPlatform>
-    <XnaProfile>HiDef</XnaProfile>
+    <XnaProfile>Reach</XnaProfile>
     <XnaCrossPlatformGroupID>aa167aa2-f79d-4104-8386-900f90f24b26</XnaCrossPlatformGroupID>
     <XnaOutputType>Game</XnaOutputType>
     <ApplicationIcon>Game.ico</ApplicationIcon>
@@ -117,6 +117,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Kinetic.cs" />
     <Compile Include="RigidBodyManager.cs" />
+    <Compile Include="SpriteManager.cs" />
     <Compile Include="TestBlock.cs" />
   </ItemGroup>
   <ItemGroup>

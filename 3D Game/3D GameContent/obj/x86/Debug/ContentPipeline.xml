@@ -7,19 +7,12 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\donut.xnb</Output>
-      <Time>2011-04-23T00:48:21.274414-05:00</Time>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Models\donut.xnb</Output>
+      <Time>2011-05-10T16:08:37.46875-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\donut_0.xml</Key>
-        <Value>2011-04-23T01:17:25.4443359-05:00</Value>
+        <Value>2011-05-10T16:18:32.375-05:00</Value>
       </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\donut.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\donut_0.xml</Output>
-      <Time>2011-04-23T00:48:21.274414-05:00</Time>
     </Item>
     <Item>
       <Source>Models\spaceship.fbx</Source>
@@ -27,28 +20,12 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\spaceship.xnb</Output>
-      <Time>2011-04-23T01:24:42.5097656-05:00</Time>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Models\spaceship.xnb</Output>
+      <Time>2011-05-10T16:08:37.484375-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\spaceship_0.xml</Key>
-        <Value>2011-04-23T01:28:49.7822265-05:00</Value>
+        <Value>2011-05-10T16:18:32.484375-05:00</Value>
       </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\spaceship.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\spaceship_0.xml</Output>
-      <Time>2011-04-23T01:24:42.5097656-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\system.spritefont</Source>
-      <Name>Fonts\system</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Fonts\system.xnb</Output>
-      <Time>2011-04-24T17:03:52.4826563-05:00</Time>
     </Item>
     <Item>
       <Source>Models\tower.fbx</Source>
@@ -56,19 +33,12 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\tower.xnb</Output>
-      <Time>2011-04-24T17:47:51.6242578-05:00</Time>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Models\tower.xnb</Output>
+      <Time>2011-05-10T16:08:37.5-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\tower_0.xml</Key>
-        <Value>2011-04-24T18:15:06.2805078-05:00</Value>
+        <Value>2011-05-10T16:18:33-05:00</Value>
       </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\tower.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\tower_0.xml</Output>
-      <Time>2011-04-24T17:47:51.6242578-05:00</Time>
     </Item>
     <Item>
       <Source>Models\box.fbx</Source>
@@ -76,19 +46,12 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\box.xnb</Output>
-      <Time>2011-04-26T00:26:53.7219141-05:00</Time>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Models\box.xnb</Output>
+      <Time>2011-05-10T16:08:37.46875-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\box_0.xml</Key>
-        <Value>2011-04-26T00:30:09.5021875-05:00</Value>
+        <Value>2011-05-10T16:18:33.125-05:00</Value>
       </Dependency>
-    </Item>
-    <Item>
-      <Source>Models\box.fbx</Source>
-      <Importer>FbxImporter</Importer>
-      <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>obj\x86\Debug\Models\box_0.xml</Output>
-      <Time>2011-04-26T00:26:53.7219141-05:00</Time>
     </Item>
     <Item>
       <Source>Models\plane.fbx</Source>
@@ -96,59 +59,105 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\Models\plane.xnb</Output>
-      <Time>2011-04-26T02:30:33.79125-05:00</Time>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Models\plane.xnb</Output>
+      <Time>2011-05-10T16:08:37.484375-05:00</Time>
       <Dependency>
         <Key>obj\x86\Debug\Models\plane_0.xml</Key>
-        <Value>2011-04-26T02:39:30.0627344-05:00</Value>
+        <Value>2011-05-10T16:18:33.203125-05:00</Value>
       </Dependency>
+    </Item>
+    <Item>
+      <Source>Fonts\system.spritefont</Source>
+      <Name>Fonts\system</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Fonts\system.xnb</Output>
+      <Time>2011-05-10T16:08:37.84375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\donut.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\donut_0.xml</Output>
+      <Time>2011-05-10T16:08:37.46875-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\spaceship.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\spaceship_0.xml</Output>
+      <Time>2011-05-10T16:08:37.484375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\tower.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\tower_0.xml</Output>
+      <Time>2011-05-10T16:08:37.5-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Models\box.fbx</Source>
+      <Importer>FbxImporter</Importer>
+      <Options>IntermediateFile, DontCacheImportedData</Options>
+      <Output>obj\x86\Debug\Models\box_0.xml</Output>
+      <Time>2011-05-10T16:08:37.46875-05:00</Time>
     </Item>
     <Item>
       <Source>Models\plane.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
       <Output>obj\x86\Debug\Models\plane_0.xml</Output>
-      <Time>2011-04-26T02:30:33.79125-05:00</Time>
+      <Time>2011-05-10T16:08:37.484375-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Kinetic.jpg</Source>
+      <Name>Kinetic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\Kinetic.xnb</Output>
+      <Time>2011-05-10T17:23:21.5-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
-      <TargetProfile>HiDef</TargetProfile>
+      <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D GameContent\</RootDirectory>
-      <LoggerRootDirectory>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D GameContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D Game\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D GameContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D GameContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D Game\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
         <Value>2010-08-23T12:41:18-05:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
         <Value>2010-08-23T12:41:18-05:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
         <Value>2010-08-23T12:41:18-05:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
         <Value>2010-08-23T12:41:18-05:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
         <Value>2010-08-23T12:41:18-05:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
+        <Key>C:\Program Files\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
         <Value>2010-08-23T12:41:18-05:00</Value>
       </Assembly>
       <Assembly>
-        <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2011-03-28T20:26:22.6152344-05:00</Value>
+        <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
+        <Value>2011-03-31T13:22:00.109375-05:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
