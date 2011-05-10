@@ -117,7 +117,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Kinetic.cs" />
-    <Compile Include="RigidBodyManager.cs" />
     <Compile Include="TestBlock.cs" />
   </ItemGroup>
   <ItemGroup>

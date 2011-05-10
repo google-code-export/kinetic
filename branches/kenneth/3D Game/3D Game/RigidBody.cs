@@ -16,6 +16,7 @@ namespace _3D_Game
         public Vector3 pos { get; protected set; }
         public Quaternion rot { get; protected set; }
         public CollisionVolume obb { get; protected set; }
+        private Quaternion aVel;
         private Vector3 vel;
         private Vector3 accel;
         private Vector3 force;
@@ -29,9 +30,10 @@ namespace _3D_Game
         public RigidBody(Vector3 p, Vector3 v, float m)
         {
             pos = p;
-            rot = Quaternion.Identity;
+            //rot = Quaternion.Identity;
+            rot = Quaternion.CreateFromAxisAngle(new Vector3(1.0f, 0f, 0f), MathHelper.PiOver2);
+            aVel = Quaternion.CreateFromAxisAngle(new Vector3(0f, 0f, 1.0f), MathHelper.Pi / 180f);
             vel = v;
-            //accel = Vector3.Zero;
             force = Vector3.Zero;
             mass = m;
         }
@@ -72,10 +74,13 @@ namespace _3D_Game
 
             ApplyForces(force, v3_dot, p1);     // K4 ...
             v4_dot = vel + Globals.t * accel;
-           
+            
             vel = v4_dot;
             pos = pos + Globals.t * (v1_dot + v2_dot*2f + v3_dot*2f + v4_dot) / 6.0f;
-            obb.center = pos;                   // IMPORTANT : update obb center position
+
+            rot *= aVel;
+            obb.center = pos;                   // IMPORTANT : update obb position
+            obb.SetRot(rot);                    // IMPORTANT : update obb rotation
         }
 
         // Summary:
@@ -91,8 +96,9 @@ namespace _3D_Game
             }
             if (Math.Abs(pos.Y) > Globals.yBound)
             {
-                vel.Y = -vel.Y;
-                yB = (pos.Y > 0) ? 100 : -100;
+                //vel.Y = -vel.Y;
+                vel.Y = 0;
+                yB = (pos.Y > 0) ? 100f : -92.5f;
             }
             if (Math.Abs(pos.Z) > Globals.zBound)
             {
@@ -106,9 +112,10 @@ namespace _3D_Game
                 (zB == null) ? pos.Z : (float)zB);
         }
 
-        public void setBB(Vector3 e)
+        public void SetBB(Vector3 e)
         {
             obb = new CollisionVolume(e);
+            obb.SetRot(rot);
         }
 
         #endregion
