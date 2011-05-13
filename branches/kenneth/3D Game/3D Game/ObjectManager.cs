@@ -20,7 +20,6 @@ namespace _3D_Game
         public bool paused { get; set; }
         public bool visible { get; set; }
         public bool collision { get; set; }
-        public int collided { get; set; }
         List<Object> objects = new List<Object>();
         Random random = new Random();
         
@@ -31,7 +30,6 @@ namespace _3D_Game
             paused = false;
             collision = false;
             visible = true;
-            collided = 0;
         }
 
         public override void Initialize()
@@ -45,11 +43,19 @@ namespace _3D_Game
 
             for (int i = 0; i < Globals.blockCount; i++)
             {
-                objects.Add(new Object(Game.Content.Load<Model>(@"Models\box"), new Vector3(0f, -92.5f, 0f), Vector3.Zero, 1.0f, random.Next()));
-                //models.Add(new TestBlock(Game.Content.Load<Model>(@"Models\box")));
+                //objects.Add(
+                //    new Object(Game.Content.Load<Model>(@"Models\box"),
+                //        new Vector3(0f, -Globals.yBound, 0f),
+                //        Vector3.Zero,
+                //        1.0f,
+                //        random.Next()));
+                objects.Add(
+                    new Object(Game.Content.Load<Model>(@"Models\box"),     // model
+                        new Vector3(0f, (float)random.NextDouble() * 5f, 0f),            // position
+                        1.0f,                                               // mass
+                        random.Next()));                                    // seed for velocity
             }
             objects.Add(new Object(Game.Content.Load<Model>(@"Models\plane"), "ground_plane", new Vector3(0, -100, 0)));
-            //models.Add(new BasicModel(Game.Content.Load<Model>(@"Models\plane"), "plane", new Vector3(0, -100, 0)));
 
             base.LoadContent();
         }
@@ -60,7 +66,6 @@ namespace _3D_Game
             {
                 for (int i = 0; i < objects.Count; ++i)
                 {
-                    // if (!paused) models[i].Update();
                     if (!paused) objects[i].Update();
                 }
 
@@ -84,7 +89,7 @@ namespace _3D_Game
             base.Draw(gameTime);
         }
 
-        public void CollisionDetect()
+        private void CollisionDetect()
         {
             // here it is .. the n^2 CPU killer
             foreach (Object A in objects)
@@ -95,20 +100,25 @@ namespace _3D_Game
                     {
                         if (B.collidable && (A.GetName() != B.GetName()))
                         {
-                            if (CollisionTest(A, B)) collision = true;
+                            if (CollisionTest(A, B))
+                            {
+                                collision = true;
+                                CollisionResolve(A, B);
+                            }
                         }
                     }
                 }
             }
         }
 
-        // OBB Collision based on Separating Axis theorem
-        // Code ported from Christer Ericson's C++ version
-        // There is probably a more concise way to code this
-        public bool CollisionTest(Object A, Object B)
+        // Summary:
+        //   OBB Collision based on Separating Axis theorem
+        //   Code ported from Christer Ericson's C++ version
+        //   There is probably a more concise way to code this
+        private bool CollisionTest(Object A, Object B)
         {
-            CollisionVolume a = A.GetOBB();
-            CollisionVolume b = B.GetOBB();
+            BoundVolume a = A.GetOBB();
+            BoundVolume b = B.GetOBB();
             float rA, rB;                       // projection of radii onto test axis
             float[,] R = new float[3,3];
             float[,] AbsR = new float[3,3];
@@ -203,6 +213,15 @@ namespace _3D_Game
             if (Math.Abs(t[1] * R[0, 2] - t[0] * R[1, 2]) > rA + rB) return false;
 
             return true;
+        }
+
+        private void CollisionResolve(Object A, Object B)
+        {
+            // calculate collision point(s)
+            // get velocity => inertia for A and B
+            // calculate torque + force
+            // add forces to Objects
+            // solve or something
         }
 
         public void toggleVis()

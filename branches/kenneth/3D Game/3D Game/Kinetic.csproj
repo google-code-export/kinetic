@@ -108,10 +108,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicModel.cs" />
+    <Compile Include="Collision.cs" />
+    <Compile Include="CollisionHandler.cs" />
     <Compile Include="Object.cs" />
     <Compile Include="RigidBody.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="CollisionVolume.cs" />
+    <Compile Include="BoundVolume.cs" />
     <Compile Include="Globals.cs" />
     <Compile Include="ObjectManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

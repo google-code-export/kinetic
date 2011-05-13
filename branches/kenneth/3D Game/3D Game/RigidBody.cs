@@ -15,7 +15,7 @@ namespace _3D_Game
 
         public Vector3 pos { get; protected set; }
         public Quaternion rot { get; protected set; }
-        public CollisionVolume obb { get; protected set; }
+        public BoundVolume obb { get; protected set; }
         private Quaternion aVel;
         private Vector3 vel;
         private Vector3 accel;
@@ -27,12 +27,12 @@ namespace _3D_Game
         #region Initialize
 
         // Constructor
-        public RigidBody(Vector3 p, Vector3 v, float m)
+        public RigidBody(Vector3 p, Vector3 v, Vector3 r, float s, float m)
         {
             pos = p;
-            //rot = Quaternion.Identity;
-            rot = Quaternion.CreateFromAxisAngle(new Vector3(1.0f, 0f, 0f), MathHelper.PiOver2);
-            aVel = Quaternion.CreateFromAxisAngle(new Vector3(0f, 0f, 1.0f), MathHelper.Pi / 180f);
+            rot = Quaternion.Identity;
+            //rot = Quaternion.CreateFromAxisAngle(new Vector3(1.0f, 0f, 0f), MathHelper.PiOver2);
+            aVel = Quaternion.CreateFromAxisAngle(r, MathHelper.Pi*s / 180f);
             vel = v;
             force = Vector3.Zero;
             mass = m;
@@ -79,6 +79,7 @@ namespace _3D_Game
             pos = pos + Globals.t * (v1_dot + v2_dot*2f + v3_dot*2f + v4_dot) / 6.0f;
 
             rot *= aVel;
+            rot.Normalize();
             obb.center = pos;                   // IMPORTANT : update obb position
             obb.SetRot(rot);                    // IMPORTANT : update obb rotation
         }
@@ -96,8 +97,8 @@ namespace _3D_Game
             }
             if (Math.Abs(pos.Y) > Globals.yBound)
             {
-                //vel.Y = -vel.Y;
-                vel.Y = 0;
+                vel.Y = -vel.Y;
+                //vel.Y = 0;
                 yB = (pos.Y > 0) ? 100f : -92.5f;
             }
             if (Math.Abs(pos.Z) > Globals.zBound)
@@ -114,7 +115,7 @@ namespace _3D_Game
 
         public void SetBB(Vector3 e)
         {
-            obb = new CollisionVolume(e);
+            obb = new BoundVolume(e);
             obb.SetRot(rot);
         }
 
