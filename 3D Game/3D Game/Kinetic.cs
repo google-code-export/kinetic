@@ -46,7 +46,7 @@ namespace _3D_Game
 
         // Game Flags
         bool debug = true;
-        bool paused = false;
+        public bool paused = false;
         bool wires = false;
 
         #endregion
@@ -136,6 +136,15 @@ namespace _3D_Game
             {
                 modelManager.toggleVis();
             }
+            //if (debug)
+            //{
+            //    if (modelManager.collision)
+            //    {
+            //        paused = true;
+            //        modelManager.paused = true;
+            //        modelManager.collision = false;
+            //    }
+            //}
 
             // Mouse controls
             mNow = Mouse.GetState();

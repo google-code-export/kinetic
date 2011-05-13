@@ -22,16 +22,19 @@ namespace _3D_Game
             //CreateCollisionVolume();
         }
 
-        public Object(Model m, Vector3 p, Vector3 v, float mass, int seed)
+        public Object(Model m, Vector3 p, float mass, int seed)
         {
             Random random = new Random(seed);   // random velocity seed. remove after level arrangements are done
-            float rx = (float)random.NextDouble() * Globals.bSpeed;
+            float vx = (float)random.NextDouble() * Globals.bSpeed;
             //float ry = (float)random.NextDouble() * Globals.bSpeed / 2f;
-            float ry = 0.0f;
-            float rz = (float)random.NextDouble() * Globals.bSpeed;
+            float vy = 0.0f;
+            float vz = (float)random.NextDouble() * Globals.bSpeed;
+            float rx = (float)random.NextDouble() * 1.0f;
+            float ry = (float)random.NextDouble() * 1.0f;
+            float rz = (float)random.NextDouble() * 1.0f;
 
             basicModel = new TestBlock(m, p);
-            rBody = new RigidBody(p, new Vector3(rx, ry, rz), mass);
+            rBody = new RigidBody(p, new Vector3(vx, vy, vz), new Vector3(rx, ry, rz), (float)random.NextDouble() * 3.0f, mass);
             CreateCollisionVolume();
             collidable = true;
         }
@@ -83,9 +86,8 @@ namespace _3D_Game
             rBody.SetBB(e);
         }
 
-        public CollisionVolume GetOBB()
+        public BoundVolume GetOBB()
         {
-            CollisionVolume returnVolume = rBody.obb;
             return rBody.obb;
         }
 

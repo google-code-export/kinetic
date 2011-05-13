@@ -10,13 +10,13 @@ namespace _3D_Game
     /// OBB collision volume object to be used in collision detection and
     /// resolution
     /// </summary>
-    public class CollisionVolume
+    public class BoundVolume
     {
         public Vector3 center;
         public Vector3[] axes;
         public Vector3 ex;
 
-        public CollisionVolume(Vector3 e)
+        public BoundVolume(Vector3 e)
         {
             center = Vector3.Zero;
             axes = new Vector3[3];
