@@ -1,0 +1,2 @@
+C:\School\EECS-395 Game Engines\3D-Games\3D Game\3D Game\3D GameContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\Administrator\Desktop\Kinetic\3D Game\3D GameContent\obj\x86\Debug\ResolveAssemblyReference.cache
