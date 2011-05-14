@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define Q_DEBUG
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -79,9 +81,25 @@ namespace _3D_Game
             pos = pos + Globals.t * (v1_dot + v2_dot*2f + v3_dot*2f + v4_dot) / 6.0f;
 
             rot *= aVel;
-            rot.Normalize();
+            rot = Quaternion.Normalize(rot);
             obb.center = pos;                   // IMPORTANT : update obb position
             obb.SetRot(rot);                    // IMPORTANT : update obb rotation
+
+#if Q_DEBUG
+            float qL = rot.Length();
+            Vector3 XY = Vector3.Cross(obb.axes[0], obb.axes[1]);
+            Vector3 Z = obb.axes[2];
+            XY.Normalize();
+            Z.Normalize();
+            if (XY == Z)
+            {
+
+            }
+            else
+            {
+
+            }
+#endif
         }
 
         // Summary:
