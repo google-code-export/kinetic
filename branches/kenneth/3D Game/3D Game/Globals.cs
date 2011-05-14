@@ -13,7 +13,7 @@ namespace _3D_Game
         public const int Height = 900;
         
         // environment and physics
-        public const float t = 0.17f;       // time step for solver - default 0.22f
+        public const float t = 0.08f;       // time step for solver - default 0.17f
         public const float g = -9.81f;      // gravity
         public const float cSpeed = 2.0f;   // default camera speed
         public const float bSpeed = 4.0f;   // default block speed
@@ -24,7 +24,7 @@ namespace _3D_Game
         public const float zBound = 125f;
 
         // item parameters
-        public const int blockCount = 10;
+        public const int blockCount = 1;
 
         // collision handling
         public enum colType { Point, Edge, Face };
