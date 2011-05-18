@@ -41,5 +41,20 @@ namespace _3D_Game
                 axes[i].Normalize();
             }
         }
+
+        public float X(int i)
+        {
+            switch (i)
+            {
+                case 1:
+                    return ex.X;
+                case 2:
+                    return ex.Y;
+                case 3:
+                    return ex.Z;
+                default:
+                    return -1f;
+            }
+        }
     }
 }

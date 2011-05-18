@@ -234,7 +234,7 @@ namespace _3D_Game
             string dbg_ctrl5 = "  1/2 : wires/solid      ";
             string dbg_mods1 = "objects: " + modelManager.GetObjCount();
             //string dbg_mods1 = "models: " + modelManager.GetModelCount();
-            string dbg_mods2 = (modelManager.collision) ? "COLLISION" : "CLEAR";
+            string dbg_mods2 = (modelManager.hit) ? "COLLISION" : "CLEAR";
 
             // draw text
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
@@ -253,7 +253,7 @@ namespace _3D_Game
                 spriteBatch.DrawString(fontSystem, dbg_ctrl4, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl4).X, mg + 4*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_ctrl5, new Vector2(Globals.Width - mg - fontSystem.MeasureString(dbg_ctrl5).X, mg + 5*lh), Color.Black);
                 spriteBatch.DrawString(fontSystem, dbg_mods1, new Vector2(mg, Globals.Height - (mg + 1*lh) - fontSystem.MeasureString(dbg_mods1).Y), Color.Black);
-                spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, Globals.Height - (mg + 0*lh) - fontSystem.MeasureString(dbg_mods2).Y), (modelManager.collision) ? Color.Red : Color.Blue);
+                spriteBatch.DrawString(fontSystem, dbg_mods2, new Vector2(10, Globals.Height - (mg + 0*lh) - fontSystem.MeasureString(dbg_mods2).Y), (modelManager.hit) ? Color.Red : Color.Blue);
             spriteBatch.End();
 
             // Fix depth stuff before drawing 3D !!

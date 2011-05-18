@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicModel.cs" />
+    <Compile Include="CollisionSolver.cs" />
     <Compile Include="Collision.cs" />
     <Compile Include="CollisionHandler.cs" />
     <Compile Include="Object.cs" />

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="_3D_Game.BasicModel" Collapsed="true">
+    <Position X="7.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQCEAAAAAAAAgAAAAAAAAAAAAAEAAAAAAABAAAIAAA=</HashCode>
+      <FileName>BasicModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.Camera" Collapsed="true">
+    <Position X="5.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAABBAJAAAQCAAABABACEABAAAAEAAQAAAAAAAIA=</HashCode>
+      <FileName>Camera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.CollisionVolume" Collapsed="true">
+    <Position X="9.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>CollisionVolume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.Globals" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEBAAACAAAAAAAAEACAAAAAAAIAEQAQAAAAIA=</HashCode>
+      <FileName>Globals.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.Game3D" Collapsed="true">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEEEAAAhAAEwQAAAjABAAQAAAAQAkIAAQAAEAAMAQ=</HashCode>
+      <FileName>Kinetic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.Object" Collapsed="true">
+    <Position X="8.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAAAgAAAAAAEBAAAAAABAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Object.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.ObjectManager" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAIwAAAAAAAAgAAQAAAAAAAAQAAAAAIAQ=</HashCode>
+      <FileName>ObjectManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.Program" Collapsed="true">
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.RigidBody" Collapsed="true">
+    <Position X="9.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CIgAAAAAAAAAIAAAACAAAIAqAAAAAAAAAAAAAAQAAgA=</HashCode>
+      <FileName>RigidBody.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="_3D_Game.TestBlock" Collapsed="true">
+    <Position X="7.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAABAAAAgAAA=</HashCode>
+      <FileName>TestBlock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
